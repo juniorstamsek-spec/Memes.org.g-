@@ -1,1 +1,159 @@
-https://juniorstamsek-spec.github.io/memes
+https://juniorstamsek-spec.github.io/memes<!DOCTYPE html>
+<html>
+<head>
+  <title>memes.org.g | Meme Empire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: white;
+    }
+
+    header {
+      background: linear-gradient(90deg, yellow, orange);
+      color: black;
+      text-align: center;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+    }
+
+    .feed {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .meme {
+      background: #1a1a1a;
+      width: 95%;
+      max-width: 450px;
+      margin: 15px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255,255,0,0.2);
+      transition: 0.3s;
+    }
+
+    .meme:hover {
+      transform: scale(1.03);
+    }
+
+    .meme img {
+      width: 100%;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 15px;
+      align-items: center;
+    }
+
+    .like-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .like-btn:hover {
+      color: red;
+    }
+
+    .upload {
+      text-align: center;
+      margin: 20px;
+    }
+
+    input {
+      padding: 8px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    button {
+      padding: 8px 15px;
+      border-radius: 10px;
+      border: none;
+      background: yellow;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: orange;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>🔥 memes.org.g 🔥</header>
+
+<div class="upload">
+  <input type="text" id="memeURL" placeholder="Paste meme image URL">
+  <button onclick="uploadMeme()">Upload</button>
+</div>
+
+<div class="feed" id="feed"></div>
+
+<script>
+const memes = [
+"https://i.imgflip.com/30b1gx.jpg",
+"https://i.imgflip.com/26am.jpg",
+"https://i.imgflip.com/1bij.jpg",
+"https://i.imgflip.com/3oevdk.jpg"
+];
+
+function loadMemes() {
+  memes.forEach(url => createMeme(url));
+}
+
+function createMeme(url) {
+  const feed = document.getElementById("feed");
+
+  const memeDiv = document.createElement("div");
+  memeDiv.className = "meme";
+
+  memeDiv.innerHTML = `
+    <img src="${url}">
+    <div class="actions">
+      <button class="like-btn" onclick="like(this)">❤️ 0</button>
+      <button onclick="randomMeme()">🔄 Random</button>
+    </div>
+  `;
+
+  feed.prepend(memeDiv);
+}
+
+function uploadMeme() {
+  const url = document.getElementById("memeURL").value;
+  if(url) {
+    createMeme(url);
+    document.getElementById("memeURL").value = "";
+  }
+}
+
+function like(btn) {
+  let count = parseInt(btn.innerText.split(" ")[1]);
+  count++;
+  btn.innerText = "❤️ " + count;
+}
+
+function randomMeme() {
+  const random = memes[Math.floor(Math.random() * memes.length)];
+  createMeme(random);
+}
+
+loadMemes();
+</script>
+
+</body>
+</html>
